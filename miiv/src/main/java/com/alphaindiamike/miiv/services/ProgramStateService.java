@@ -3,6 +3,9 @@ package com.alphaindiamike.miiv.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alphaindiamike.miiv.services.pstate.ProgramState;
+import com.alphaindiamike.miiv.services.pstate.ProgramStateContext;
+
 /**
  * Singleton class for managing application state.
  * Ensures that only one instance of this class is created and provides a global point of access to it.
@@ -10,9 +13,11 @@ import java.util.List;
 public final class ProgramStateService {
     // The single instance of the class
     private static volatile ProgramStateService instance;
+    
+    private final ProgramStateContext stateContext;
 
     // Fields to hold the current state and its history
-    private String currentState;
+    private ProgramState currentState;
     private final List<String> stateHistory;
 
     // Listeners that are notified when the state changes
@@ -23,7 +28,7 @@ public final class ProgramStateService {
      * Initializes the state and its history.
      */
     private ProgramStateService() {
-        currentState = "Initial State";
+    	stateContext = new ProgramStateContext();
         stateHistory = new ArrayList<>();
         listeners = new ArrayList<>();
     }
@@ -51,14 +56,10 @@ public final class ProgramStateService {
      * Notifies listeners of the state change.
      *
      * @param newState the new state to be set
+     * @param parameters: parameters required for state transition
      */
-    public synchronized void setState(String newState) {
-        if (validateState(newState)) {
-            currentState = newState;
-            stateHistory.add(newState);
-            logStateChange();
-            notifyListeners();
-        }
+    public synchronized void setState(ProgramState newState, String[] parameters) {
+    	stateContext.changeState(newState, parameters);
     }
 
     /**
@@ -67,14 +68,14 @@ public final class ProgramStateService {
      * @return the current state
      */
     public synchronized String getState() {
-        return currentState;
+        return stateContext.getCurrentState();
     }
 
     /**
      * Resets the state to its initial condition.
      */
     public synchronized void resetState() {
-        currentState = "Initial State";
+        stateContext.resetState();
         stateHistory.clear();
         notifyListeners();
     }
@@ -102,7 +103,7 @@ public final class ProgramStateService {
      */
     private void notifyListeners() {
         for (StateChangeListener listener : listeners) {
-            listener.onStateChange(currentState);
+            listener.onStateChange(currentState.getState());
         }
     }
 
