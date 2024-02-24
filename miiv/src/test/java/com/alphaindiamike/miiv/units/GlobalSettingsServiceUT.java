@@ -121,5 +121,54 @@ class GlobalSettingsServiceUT {
         
         assertNull(service.getSetting(key), "Retrieving a deleted key should return null.");
     }
+    
+    @Test
+    void testDeleteNonExistentSetting() {
+        String nonExistentKey = "nonExistentKey";
+        
+        // Attempt to delete a non-existent setting
+        service.deleteSetting(nonExistentKey);
+        
+        // Verify that attempting to retrieve the deleted (non-existent) key returns null
+        assertNull(service.getSetting(nonExistentKey), "Deleting a non-existent key should not affect the database.");
+    }
+    
+    @Test
+    void testRetrieveDeletedSetting() {
+        String keyToDelete = "deleteMe";
+        String value = "goneSoon";
+
+        service.setSetting(keyToDelete, value);
+        service.deleteSetting(keyToDelete);
+        assertNull(service.getSetting(keyToDelete), "Deleted setting should not be retrievable.");
+    }
+
+    @Test
+    void testSetSettingWithNullValue() {
+        String key = "nullableKey";
+        service.setSetting(key, null);
+
+        assertNull(service.getSetting(key), "Setting with a null value should return null.");
+    }
+
+    @Test
+    void testSetSettingWithEmptyValue() {
+        String key = "emptyKey";
+        service.setSetting(key, "");
+
+        assertEquals("", service.getSetting(key), "Setting with an empty value should return an empty string.");
+    }
+
+    @Test
+    void testHandlingLargeVolumeOfSettings() {
+        int numberOfSettings = 1000; // Adjust based on what you consider "large volume"
+        for (int i = 0; i < numberOfSettings; i++) {
+            service.setSetting("key" + i, "value" + i);
+        }
+
+        for (int i = 0; i < numberOfSettings; i++) {
+            assertEquals("value" + i, service.getSetting("key" + i), "Should retrieve correct value for key" + i);
+        }
+    }
 
 }
