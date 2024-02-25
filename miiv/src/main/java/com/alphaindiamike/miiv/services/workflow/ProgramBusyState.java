@@ -1,4 +1,4 @@
-package com.alphaindiamike.miiv.services.pstate;
+package com.alphaindiamike.miiv.services.workflow;
 
 public class ProgramBusyState implements ProgramState{
 	
@@ -14,9 +14,8 @@ public class ProgramBusyState implements ProgramState{
 	}
 	
 	@Override
-	public String getState() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getStateName() {
+		return "Busy";
 	}
 
 	@Override

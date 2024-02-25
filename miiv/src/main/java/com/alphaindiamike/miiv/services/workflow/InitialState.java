@@ -1,9 +1,12 @@
-package com.alphaindiamike.miiv.services.pstate;
+package com.alphaindiamike.miiv.services.workflow;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import com.alphaindiamike.miiv.privatelib.exceptions.DirectoryCreationException;
+import com.alphaindiamike.miiv.privatelib.exceptions.InvalidPathException;
 
 /**
  * Represents the initial state of the program, where initialization has not yet occurred.
@@ -16,7 +19,7 @@ public class InitialState implements ProgramState {
      * @return the name of the current state.
      */
     @Override
-    public String getState() {
+    public String getStateName() {
         return "Pending init";
     }
 
@@ -33,7 +36,7 @@ public class InitialState implements ProgramState {
     @Override
     public ProgramState handleStateChange(ProgramStateContext context, ProgramState nextState, String[] parameters) {
         if (parameters == null || parameters.length == 0) {
-            throw new IllegalArgumentException("Expected a valid path as the first parameter.");
+            throw new InvalidPathException("Expected a valid path as the first parameter.");
         }
 
         String pathString = parameters[0];
@@ -44,10 +47,10 @@ public class InitialState implements ProgramState {
             try {
                 Files.createDirectories(path);
             } catch (IOException e) {
-                throw new IllegalArgumentException("Failed to create the directory at the provided path: " + pathString, e);
+                throw new DirectoryCreationException("Failed to create the directory at the provided path: " + pathString, e);
             }
         } else if (!Files.isDirectory(path)) {
-            throw new IllegalArgumentException("The provided path exists but is not a directory: " + pathString);
+            throw new InvalidPathException("The provided path exists but is not a directory: " + pathString);
         }
 
         // Create the .miiv subdirectory within the provided path
@@ -56,7 +59,7 @@ public class InitialState implements ProgramState {
             try {
                 Files.createDirectory(miivPath);
             } catch (IOException e) {
-                throw new IllegalArgumentException("Failed to create the .miiv directory at the provided path: " + miivPath, e);
+                throw new DirectoryCreationException("Failed to create the .miiv directory at the provided path: " + miivPath, e);
             }
         }
         // Assuming setupLocalDatabase and other necessary setup tasks are performed here

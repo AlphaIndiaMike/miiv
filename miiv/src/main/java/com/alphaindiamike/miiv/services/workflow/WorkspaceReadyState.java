@@ -1,4 +1,4 @@
-package com.alphaindiamike.miiv.services.pstate;
+package com.alphaindiamike.miiv.services.workflow;
 
 public class WorkspaceReadyState implements ProgramState{
 	private String activeWorkspacePath = "";
@@ -8,7 +8,7 @@ public class WorkspaceReadyState implements ProgramState{
 	}
 	
 	@Override
-	public String getState() {
+	public String getStateName() {
 		return "Ready";
 	}
 

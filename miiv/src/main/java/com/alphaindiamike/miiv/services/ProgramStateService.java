@@ -3,8 +3,8 @@ package com.alphaindiamike.miiv.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alphaindiamike.miiv.services.pstate.ProgramState;
-import com.alphaindiamike.miiv.services.pstate.ProgramStateContext;
+import com.alphaindiamike.miiv.services.workflow.ProgramState;
+import com.alphaindiamike.miiv.services.workflow.ProgramStateContext;
 
 /**
  * Singleton class for managing application state.
@@ -17,6 +17,7 @@ public final class ProgramStateService {
     private final ProgramStateContext stateContext;
 
     // Fields to hold the current state and its history
+    private ProgramState prevState;
     private ProgramState currentState;
     private final List<String> stateHistory;
 
@@ -31,6 +32,7 @@ public final class ProgramStateService {
     	stateContext = new ProgramStateContext();
         stateHistory = new ArrayList<>();
         listeners = new ArrayList<>();
+        addStateToHistory(stateContext.getCurrentStateName());
     }
 
     /**
@@ -58,8 +60,15 @@ public final class ProgramStateService {
      * @param newState the new state to be set
      * @param parameters: parameters required for state transition
      */
-    public synchronized void setState(ProgramState newState, String[] parameters) {
-    	stateContext.changeState(newState, parameters);
+    public synchronized void triggerStateTransition(ProgramState newState, String[] parameters) {
+    	prevState = currentState;
+    	currentState = stateContext.changeState(newState, parameters);
+    	if (true == validateState())
+    	{
+    		addStateToHistory(newState.getStateName());
+    		notifyListeners();
+        	logStateChange();
+    	}
     }
 
     /**
@@ -68,7 +77,7 @@ public final class ProgramStateService {
      * @return the current state
      */
     public synchronized String getState() {
-        return stateContext.getCurrentState();
+        return stateContext.getCurrentStateName();
     }
 
     /**
@@ -78,6 +87,20 @@ public final class ProgramStateService {
         stateContext.resetState();
         stateHistory.clear();
         notifyListeners();
+    }
+    
+    /**
+     * Adds a state to the history.
+     * This method allows programmatically adding states to the history,
+     * simulating state transitions for testing or initialization purposes.
+     *
+     * @param stateName The name of the state to add to the history.
+     */
+    public synchronized void addStateToHistory(String stateName) {
+        if (stateName == null || stateName.trim().isEmpty()) {
+            throw new IllegalArgumentException("State name cannot be null or empty.");
+        }
+        stateHistory.add(stateName);
     }
 
     /**
@@ -103,7 +126,7 @@ public final class ProgramStateService {
      */
     private void notifyListeners() {
         for (StateChangeListener listener : listeners) {
-            listener.onStateChange(currentState.getState());
+            listener.onStateChange(currentState.getStateName());
         }
     }
 
@@ -114,9 +137,14 @@ public final class ProgramStateService {
      * @param newState the new state to validate
      * @return true if the new state is valid, false otherwise
      */
-    private boolean validateState(String newState) {
-        // Simple validation: new state must not be null or empty
-        return newState != null && !newState.trim().isEmpty();
+    private boolean validateState() {
+        /* in Java, the != operator is used to compare references, 
+         * not the content of the objects. If you have two different 
+         * objects (instances) of the same class, even if they contain 
+         * the same data, using != to compare them will return true 
+         * because they are different objects with different memory 
+         * addresses in the heap. */
+        return currentState != prevState;
     }
 
     /**

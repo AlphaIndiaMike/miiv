@@ -1,6 +1,6 @@
-package com.alphaindiamike.miiv.services.pstate;
+package com.alphaindiamike.miiv.services.workflow;
 
 public interface ProgramState {
 	ProgramState handleStateChange(ProgramStateContext context, ProgramState nextState, String[] parameters);
-    String getState();
+    String getStateName();
 }
