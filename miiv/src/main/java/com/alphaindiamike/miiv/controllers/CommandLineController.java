@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.alphaindiamike.miiv.controllers.cli.CommandHandler;
+import com.alphaindiamike.miiv.controllers.cli.CommandResponse;
 import com.alphaindiamike.miiv.controllers.cli.HelpCommandHandler;
 
 
@@ -17,6 +18,7 @@ import com.alphaindiamike.miiv.controllers.cli.HelpCommandHandler;
 public class CommandLineController implements MiivControllerAccessInterface{
 	
 	private final List<CommandHandler> commandHandlers;
+	private CommandResponse response;
 	
     @Autowired
     public CommandLineController(List<CommandHandler> commandHandlers) {
@@ -37,7 +39,7 @@ public class CommandLineController implements MiivControllerAccessInterface{
 		String prefix = command[0];
         for (CommandHandler handler : commandHandlers) {
             if (handler.supports(prefix)) {
-                handler.handle(Arrays.copyOfRange(command, 1, command.length));
+            	response = handler.handle(Arrays.copyOfRange(command, 0, command.length));
                 return;
             }
         }
@@ -48,20 +50,17 @@ public class CommandLineController implements MiivControllerAccessInterface{
 
 	@Override
 	public String output() {
-		// TODO Auto-generated method stub
-		return null;
+		return response != null ? response.Response() : "No response available.";
 	}
 
 	@Override
 	public String error() {
-		// TODO Auto-generated method stub
-		return null;
+		return response != null ? response.Error() : "No error.";
 	}
 
 	@Override
 	public boolean finished() {
-		// TODO Auto-generated method stub
-		return false;
+		return response != null && response.PR();
 	}
 
 	@Override

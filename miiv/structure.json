@@ -1,0 +1,212 @@
+{
+  "name": "root",
+  "schema_version_major": 1,
+  "schema_version_minor": 0,
+  "purpose": "Top level",
+  "preferredFileTypes": [],
+  "children": [
+    {
+      "name": "01 Personal",
+      "purpose": "Store personal data",
+      "preferredFileTypes": [],
+      "children": [
+        {
+          "name": "01 Personal Documents",
+          "purpose": "Personal documents: IDs, Marriage Certificatge, Diplomas, Rent Contract, etc.",
+          "preferredFileTypes": [],
+          "children": [
+            {
+              "name": "01 My Documents",
+              "purpose": "Personal documents: IDs, Marriage Certificatge, Diplomas, Rent Contract, etc.",
+              "preferredFileTypes": [],
+              "children": [
+                {
+                  "name": "01 ID Card",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "02 School Diploma",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "03 Bachelor Diploma",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "04 Masters Diploma",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "05 Work Certificates",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "06 Training Certificates",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "07 Passport copies",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "08 CVs",
+                  "content": "version_controlled_by_date",
+                  "preferredFileTypes": ["doc","docx","pdf"]
+                },
+                {
+                  "name": "09 Official Documents",
+                  "purpose": "Official documents: tax audit, registration in a new country, tc.",
+                  "content": "version_controlled_by_date",
+                  "preferredFileTypes": ["doc","docx","pdf","png","jpg","jpeg","tiff"]
+                }
+              ]
+            },
+            {
+              "name": "02 My Spouse Documents",
+              "purpose": "Personal documents: IDs, Marriage Certificatge, Diplomas, Rent Contract, etc.",
+              "preferredFileTypes": [],
+              "children": [
+                {
+                  "name": "01 ID Card",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "02 School Diploma",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "03 Bachelor Diploma",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "04 Masters Diploma",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "05 Work Certificates",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "06 Training Certificates",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "07 Passport copies",
+                  "preferredFileTypes": ["jpg", "jpeg", "png", "tiff", "pdf"]
+                },
+                {
+                  "name": "08 CVs",
+                  "content": "version_controlled_by_date",
+                  "preferredFileTypes": ["doc","docx","pdf"]
+                },
+                {
+                  "name": "09 Official Documents",
+                  "purpose": "Official documents: tax audit, registration in a new country, tc.",
+                  "content": "version_controlled_by_date",
+                  "preferredFileTypes": ["doc","docx","pdf","png","jpg","jpeg","tiff"]
+                }
+              ]
+            },
+            {
+              "name": "03 Personal Properties Documents",
+              "purpose": "Documents of personal real estate, vehicles, equipment",
+              "content": "version_controlled_by_date_and_type",
+              "template": {
+                "type": ["real estate", "vehicle", "equipment"]
+              }
+            },
+            {
+              "name": "04 Rental Documents",
+              "purpose": "Rental contract, utilities contracts, etc.",
+              "content": "version_controlled_by_date_and_type",
+              "template": {
+                "type": ["rental contract", "electricity", "heating", "radio", "internet"]
+              }
+            }
+          ]
+        },
+        {
+          "name": "02 Pictures",
+          "purpose": "Collection of pictures, memories, private stock images",
+          "preferredFileTypes": [],
+          "children": [
+            {
+              "name": "01 Personal Archive",
+              "content": "version_controlled_by_date",
+              "preferredFileTypes": ["png","jpg","jpeg", "tiff"]
+            },
+            {
+              "name": "02 Stock Images",
+              "content": "version_controlled_by_date",
+              "preferredFileTypes": ["png","jpg","jpeg", "tiff"]
+            }
+          ]
+        },
+        {
+          "name": "03 Movies",
+          "purpose": "Personal movie collection",
+          "preferredFileTypes": [],
+          "children": [
+            {
+              "name": "01 Personal Archive",
+              "content": "version_controlled_by_date",
+              "preferredFileTypes": ["avi","mp4"]
+            },
+            {
+              "name": "02 Movie Titles",
+              "content": "version_controlled_by_date_and_title"
+            }
+          ]
+        },
+        {
+          "name": "04 Music",
+          "purpose": "Personal music collection",
+          "content": "version_controlled_by_date_and_title"
+        }
+      ]
+    },
+    {
+      "name": "02 Work",
+      "purpose": "Store work related documents: hobby, actual work",
+      "content": "version_controlled_by_date_and_title"
+    },
+    {
+      "name": "03 Quick Share",
+      "purpose": "Links and copies for sharing - in case deployed in cloud environments or quick access",
+      "empty": true
+    },
+    {
+      "name": "04 Software",
+      "purpose": "Software collection",
+      "preferredFileTypes": [],
+      "children": [
+        {
+          "name": "01 Windows",
+          "content": "version_controlled_by_date_and_title"
+        },
+        {
+          "name": "02 Linux",
+          "content": "version_controlled_by_date_and_title"
+        },
+        {
+          "name": "03 Mac",
+          "content": "version_controlled_by_date_and_title"
+        },
+        {
+          "name": "04 Android",
+          "content": "version_controlled_by_date_and_title"
+        }
+      ]
+    },
+    {
+      "name": "05 Backups",
+      "purpose": "Unsorted data or backups",
+      "preferredFileTypes": ["zip", "rar", "7zip"]
+    },
+    {
+      "name": "99 Archive",
+      "purpose": "Files archived for deletion",
+      "preferredFileTypes": ["other"]
+    }
+  ]
+}

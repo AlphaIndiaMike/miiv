@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * Manages global settings in a dedicated SQLite database.
  */
+@Service
 public class GlobalSettingsService {
     private static final Logger logger = LoggerFactory.getLogger(GlobalSettingsService.class);
     private static GlobalSettingsService instance;

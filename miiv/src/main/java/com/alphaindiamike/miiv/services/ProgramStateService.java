@@ -3,6 +3,10 @@ package com.alphaindiamike.miiv.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 import com.alphaindiamike.miiv.services.workflow.ProgramState;
 import com.alphaindiamike.miiv.services.workflow.ProgramStateContext;
 
@@ -10,10 +14,10 @@ import com.alphaindiamike.miiv.services.workflow.ProgramStateContext;
  * Singleton class for managing application state.
  * Ensures that only one instance of this class is created and provides a global point of access to it.
  */
+@Service
 public final class ProgramStateService {
     // The single instance of the class
     private static volatile ProgramStateService instance;
-    
     private final ProgramStateContext stateContext;
 
     // Fields to hold the current state and its history
@@ -23,6 +27,9 @@ public final class ProgramStateService {
 
     // Listeners that are notified when the state changes
     private final List<StateChangeListener> listeners;
+    
+    //Logger
+    private static final Logger logger = LoggerFactory.getLogger(ProgramStateService.class);
 
     /**
      * Private constructor to prevent instantiation.
@@ -152,7 +159,7 @@ public final class ProgramStateService {
      * This method can be modified to log to a file or external system.
      */
     private void logStateChange() {
-        System.out.println("State changed to: " + currentState);
+    	logger.debug("State changed to: {}", currentState);
     }
 
     /**

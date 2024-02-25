@@ -39,6 +39,31 @@
       <version>3.45.1.0</version>
   </dependency>
   
+  <!-- Jackson Core -->
+  <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.16.1</version> <!-- Use the latest version available -->
+  </dependency>
+  <!-- Jackson Databind -->
+  <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.16.1</version> <!-- Use the latest version available -->
+  </dependency>
+  <!-- Jackson Annotations -->
+  <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.16.1</version> <!-- Use the latest version available -->
+  </dependency>
+  
+  <dependency>
+    <groupId>jakarta.annotation</groupId>
+    <artifactId>jakarta.annotation-api</artifactId>
+    <version>2.1.1</version>
+  </dependency>
+  
   <!-- SLF4J API -->
   <dependency>
       <groupId>org.slf4j</groupId>
@@ -90,7 +115,10 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version>
+          <version>3.12.1</version>
+          <configuration>
+            <release>16</release> <!-- To enable use of Record -->
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
