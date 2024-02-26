@@ -40,3 +40,6 @@ target/
 
 # Local configuration files
 *.properties
+
+# Databases
+*.db

@@ -14,11 +14,12 @@ public class HelpCommandHandler implements CommandHandler{
 	}
 	
     @Override
-    public void handle(String[] args) {
+    public CommandResponse handle(String[] args) {
         // Display the general help text or specific command help
         if (args.length == 0) {
         	System.out.println(generalHelp);
         }
+		return new CommandResponse(generalHelp,"",true);
     }
 
     @Override

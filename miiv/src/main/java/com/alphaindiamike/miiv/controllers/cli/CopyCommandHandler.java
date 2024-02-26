@@ -4,8 +4,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class CopyCommandHandler implements CommandHandler{
     @Override
-    public void handle(String[] args) {
+    public CommandResponse handle(String[] args) {
     	System.out.println("Not implemented :(");
+		return null;
     }
 
     @Override
