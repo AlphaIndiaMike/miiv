@@ -39,7 +39,7 @@ public class InitCommandHandler implements CommandHandler{
     public CommandResponse handle(String[] args) {
         // Check if 'workspace_dir' setting exists, indicating 'init' has already been executed
         if (settingsService.getSetting("workspace_dir") != null) {
-        	String message = "Init command has already been executed. Please use 'set' to change the workspace location.";
+        	String message = "Workspace already initialized. Use miiv set {new_workspace} to change the workspace location.";
             System.out.println(message);
             return new CommandResponse("",message,false);
         }

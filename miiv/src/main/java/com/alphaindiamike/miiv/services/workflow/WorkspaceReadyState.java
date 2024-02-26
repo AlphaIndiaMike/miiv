@@ -15,7 +15,7 @@ public class WorkspaceReadyState implements ProgramState{
 	@Override
 	public ProgramState handleStateChange(ProgramStateContext context, ProgramState nextState, String[] parameters) {
 		
-		return new ProgramBusyState(parameters[0], activeWorkspacePath, parameters[1]);
+		return null;
 	}
 
 }

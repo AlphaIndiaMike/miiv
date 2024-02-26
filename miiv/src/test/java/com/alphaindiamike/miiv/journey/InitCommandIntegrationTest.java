@@ -14,7 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InitCommandIntegrationTest {
@@ -97,10 +97,10 @@ public class InitCommandIntegrationTest {
 
         // Attempt to call 'init' a second time
         applicationService.performAction(new String[]{"init", testDirectory.toString()}); // because it's on the other state; we need a state reset here
-        
         // Expected message indicating 'init' has already been executed and suggesting the use of 'set'
-        String expectedMessage = "Init command has already been executed. Please use 'set' to change the workspace location.";
-        assertEquals(expectedMessage, applicationService.getErrorResponse(), "The expected message for calling 'init' a second time was not returned.");
+        String expectedMessage = "Workspace already initialized. Use miiv set {new_workspace} to change the workspace location.".trim();
+        String actualMessage = applicationService.getErrorResponse().trim();
+        assertEquals(expectedMessage, actualMessage, "The expected message for calling 'init' a second time was not returned.");
     }
     
     @Test
@@ -109,7 +109,7 @@ public class InitCommandIntegrationTest {
         applicationService.performAction(new String[]{"set", testDirectory.toString()});
 
         // Expected message indicating 'init' must be called before 'set'
-        String expectedMessage = "Please run 'miiv init {path}' before using 'set'.";
+        String expectedMessage = "Workspace not initialized. Use miiv init {workspace_dir} to initialize the workspace location.";
         assertEquals(expectedMessage, applicationService.getErrorResponse(), "The expected message for calling 'set' without 'init' was not returned.");
     }
     
