@@ -10,7 +10,9 @@ public class MoveCommandHandler implements CommandHandler{
     }
 
     @Override
-    public boolean supports(String command) {
-        return "move".equals(command.toLowerCase());
+    public CommandResponse supports(String command) {
+        return new CommandResponse("",
+        		"Not implemented :(",
+        		false);
     }
 }

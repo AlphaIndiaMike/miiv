@@ -32,35 +32,38 @@ public class CommandLineController implements MiivControllerAccessInterface{
 	public void input(String[] command) {
 		if (command.length == 0) {
             System.out.println("No command provided.\n\n");
-            helpCommandHandler.handle(new String[0]);
+            response = helpCommandHandler.handle(new String[0]);
             return;
         }
         
 		String prefix = command[0];
         for (CommandHandler handler : commandHandlers) {
-            if (handler.supports(prefix)) {
+        	response = handler.supports(prefix);
+            if (response.PR()) {
             	response = handler.handle(Arrays.copyOfRange(command, 0, command.length));
                 return;
             }
         }
-
-        System.out.println("Invalid command.\n\n");
-        helpCommandHandler.handle(new String[0]);
+        if (response.Error().equals("")) {
+	        System.out.println("Invalid command.\n\n");
+	        response = helpCommandHandler.handle(new String[0]);
+        }
 	}
 
 	@Override
 	public String output() {
-		return response != null ? response.Response() : "No response available.";
+		return response != null ? response.Response() : "";
 	}
 
 	@Override
 	public String error() {
-		return response != null ? response.Error() : "No error.";
+		return response != null ? response.Error() : "";
 	}
 
 	@Override
 	public boolean finished() {
-		return response != null && response.PR();
+		if (response != null) return response.PR();
+		return false;
 	}
 
 	@Override

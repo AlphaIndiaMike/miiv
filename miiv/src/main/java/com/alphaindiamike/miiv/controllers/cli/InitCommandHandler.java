@@ -36,16 +36,9 @@ public class InitCommandHandler implements CommandHandler{
     }
 
     @Override
-    public CommandResponse handle(String[] args) {
-        // Check if 'workspace_dir' setting exists, indicating 'init' has already been executed
-        if (settingsService.getSetting("workspace_dir") != null) {
-        	String message = "Workspace already initialized. Use miiv set {new_workspace} to change the workspace location.";
-            System.out.println(message);
-            return new CommandResponse("",message,false);
-        }
-    	
+    public CommandResponse handle(String[] args) {    	
         // Command structure validation
-        if (args.length == 0 || !args[0].equals("init") || args.length > 2) {
+        if (args.length == 0 || args.length > 2) {
         	String message = "Incorrect command. Usage: miiv init {valid path}";
             logger.error(message);
             return new CommandResponse("",message,false);
@@ -84,7 +77,23 @@ public class InitCommandHandler implements CommandHandler{
     }
 
     @Override
-    public boolean supports(String command) {
-        return "init".equals(command.toLowerCase());
+    public CommandResponse supports(String command) {
+    	String message = "Workspace already initialized. Use miiv set {new_workspace} to change the workspace location.";
+        // Check if 'workspace_dir' setting exists, indicating 'init' has already been executed
+        if (settingsService.getSetting("workspace_dir") != null) {
+            System.out.println(message);
+            return new CommandResponse("",
+            		message,
+            		false);
+        }else
+        {
+    		if (command.equals("init")) {
+    			return new CommandResponse("", "", true);
+    		}
+        }
+        return new CommandResponse("",
+        		"",
+        		false);
+        
     }
 }

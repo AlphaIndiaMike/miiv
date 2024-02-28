@@ -23,7 +23,12 @@ public class HelpCommandHandler implements CommandHandler{
     }
 
     @Override
-    public boolean supports(String command) {
-        return "help".equals(command.toLowerCase()) || "--help".equals(command.toLowerCase());
+    public CommandResponse supports(String command) {
+    	if ("help".equals(command.toLowerCase()) || "--help".equals(command.toLowerCase())) {
+	        return new CommandResponse(generalHelp,
+	        		"",
+	        		true);
+    	}
+        return new CommandResponse("","",false);
     }
 }
