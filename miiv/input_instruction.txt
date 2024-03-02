@@ -1,0 +1,15 @@
+# File options:
+# 1 \01 Personal\01 Personal Documents\01 My Documents\01 ID Card
+# 2 \01 Personal\01 Personal Documents\01 My Documents\02 School Diploma
+# 3 \01 Personal\01 Personal Documents\01 My Documents\03 Bachelor Diploma
+# ...
+#
+# 0 \99 Archive
+#
+# Change the path in front of the file to choose the location.
+
+0 path\file1
+0 path\file2
+0 path\file3
+ 
+ 
