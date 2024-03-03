@@ -180,6 +180,7 @@ public class UC2IntegrationTest {
         assertEquals(expectedMessage, actualMessage, "Message output incorrect.");
 
         // 2. TODO: Test the generation of the instruction file
+        
     }
     
     /*
